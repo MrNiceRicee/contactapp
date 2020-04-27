@@ -1,101 +1,84 @@
 package com.example.contactapp;
 
 
+import android.content.Intent;
+
 public class BaseContact {
-    protected String name;
-    protected String address;
-    protected String phone;
-    protected String street;
-    protected String city;
-    protected String country;
-    protected String state;
-    protected String postal;
-    protected String location;
+    private BaseContact_Name name;
+    private String phone;
+    private BaseContact_Address address;
+    private BaseContact_DateOfBirth dateOfBirth;
+    private String email;
+    private String url;
+    private String description;
 
-    public String getLocation() {
-        return this.address + " " + this.street + ", " + this.city + ", " + this.state + ", " + this.postal + ", " + this.country;
+    //necessary to have a name and phonenumber
+
+
+    public BaseContact(BaseContact_Name name, String phone) {
+        this.name = name;
+        this.phone = phone;
     }
 
-    public String getName() {
-        return this.name;
+    public BaseContact_Name getName() {
+        return name;
     }
 
-    protected void setName(String name) {
+    public void setName(BaseContact_Name name) {
         this.name = name;
     }
 
     public String getPhone() {
-        return this.phone;
+        return phone;
     }
 
-    protected void setPhone(String phone) {
-        this.phone = phone;
+    public void setPhone(String phone) {
+        try {
+            Integer.parseInt(phone);
+            String phonenum = phone.replaceFirst("(\\d{3})(\\d{3})(\\d+)", "($1) $2-$3");
+            this.phone = phonenum;
+        }catch(Exception e){
+            this.phone = phone;
+        };
     }
 
-    public String getAddress() {
-        return this.address;
+    public BaseContact_Address getAddress() {
+        return address;
     }
 
-    protected void setAddress(String address) {
+    public void setAddress(BaseContact_Address address) {
         this.address = address;
     }
 
-    public String getStreet() {
-        return this.street;
+    public BaseContact_DateOfBirth getDateOfBirth() {
+        return dateOfBirth;
     }
 
-    protected void setStreet(String street) {
-        this.street = street;
+    public void setDateOfBirth(BaseContact_DateOfBirth dateOfBirth) {
+        this.dateOfBirth = dateOfBirth;
     }
 
-    public String getCity() {
-        return this.city;
+    public String getEmail() {
+        return email;
     }
 
-    protected void setCity(String city) {
-        this.city = city;
+    public void setEmail(String email) {
+        this.email = email;
     }
 
-    public String getCountry() {
-        return this.country;
+    public String getUrl() {
+        return url;
     }
 
-    protected void setCountry(String country) {
-        this.country = country;
+    public void setUrl(String url) {
+        this.url = url;
     }
 
-    public String getPostal() {
-        return this.postal;
+    public String getDescription() {
+        return description;
     }
 
-    protected void setPostal(String postal) {
-        this.postal = postal;
-    }
-
-    public void makeCall(String phone) {
-    }
-
-    public void navigate(String address) {
-    }
-
-    public void sendEmail(String email) {
-    }
-
-    public void sendText(String text) {
-    }
-
-    public String toString() {
-        return "Hi, my name is " + this.name;
-    }
-
-    public BaseContact(String name, String phone, String address, String street, String city, String state, String country, String postal) {
-        this.name = name;
-        this.phone = phone;
-        this.address = address;
-        this.street = street;
-        this.city = city;
-        this.state = state;
-        this.country = country;
-        this.postal = postal;
+    public void setDescription(String description) {
+        this.description = description;
     }
 }

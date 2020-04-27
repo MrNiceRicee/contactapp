@@ -7,43 +7,25 @@ import java.util.ArrayList;
 import java.util.List;
 
 public class AddressBook extends Application {
-    List<BaseContact> contactBook = new ArrayList();
+    List<BaseContact> contactBook;
 
-    public AddressBook(List<BaseContact> ContactList) {
-        contactBook = ContactList;
+    public AddressBook(List<BaseContact> contactBook) {
+        this.contactBook = contactBook;
     }
 
-
-    public List<BaseContact> getAddressBookcontacts(){ return contactBook; }
-
-
-    public void viewAllContact() {
-        for(int i = 0; i < this.contactBook.size(); ++i) {
-            System.out.println(i + 1 + ". " + ((BaseContact)this.contactBook.get(i)).toString());
+    public AddressBook(int amount) {
+        this.contactBook = new ArrayList<>();
+        Randomizer makerandom = new Randomizer();
+        for (int i = 0; i < amount; i++) {
+            contactBook.add(makerandom.makeBaseContact());
         }
     }
 
-    public void viewPersonalContact() {
-        int count = 1;
-
-        for(int i = 0; i < this.contactBook.size(); ++i) {
-            if (this.contactBook.get(i) instanceof PersonContact) {
-                System.out.println(count + ". " + ((BaseContact)this.contactBook.get(i)).toString());
-                ++count;
-            }
-        }
-
+    public List<BaseContact> getContactBook() {
+        return contactBook;
     }
 
-    public void viewBusinessContact() {
-        int count = 1;
-
-        for(int i = 0; i < this.contactBook.size(); ++i) {
-            if (this.contactBook.get(i) instanceof PersonContact) {
-                System.out.println(count + ". " + ((BaseContact)this.contactBook.get(i)).toString());
-                ++count;
-            }
-        }
-
+    public void setContactBook(List<BaseContact> contactBook) {
+        this.contactBook = contactBook;
     }
 }
