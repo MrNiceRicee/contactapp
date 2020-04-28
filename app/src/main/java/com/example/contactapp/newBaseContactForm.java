@@ -8,9 +8,7 @@ import android.text.TextUtils;
 import android.view.View;
 import android.widget.Button;
 import android.widget.EditText;
-import android.widget.Toast;
 
-import java.text.DateFormatSymbols;
 import java.util.Arrays;
 import java.util.Random;
 
@@ -34,7 +32,7 @@ public class newBaseContactForm extends AppCompatActivity {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_new_base_contact_form);
 
-        btn_add = findViewById(R.id.btn_add);
+        btn_add = findViewById(R.id.btn_addcontact);
         btn_cancel = findViewById(R.id.btn_cancel);
 
         //gather name
@@ -62,7 +60,7 @@ public class newBaseContactForm extends AppCompatActivity {
         //gather the rest
         et_email = findViewById(R.id.et_email);
         et_url = findViewById(R.id.et_url);
-        et_description = findViewById(R.id.et_description);
+        et_description = findViewById(R.id.et_notes);
 
 
         //listen if filled in

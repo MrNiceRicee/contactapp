@@ -4,11 +4,13 @@ import androidx.appcompat.app.AppCompatActivity;
 
 import android.content.Intent;
 import android.os.Bundle;
+import android.os.Parcelable;
 import android.util.AndroidException;
 import android.view.View;
 import android.widget.AdapterView;
 import android.widget.ArrayAdapter;
 import android.widget.Button;
+import android.widget.ImageButton;
 import android.widget.ListView;
 
 import java.util.ArrayList;
@@ -16,7 +18,8 @@ import java.util.List;
 
 public class MainActivity extends AppCompatActivity {
 
-    Button btn_search, btn_addcontact;
+    Button btn_search;
+    ImageButton btn_addcontact;
     ListView lv_contacts;
 
     AddressBook addressBook;
@@ -125,7 +128,9 @@ public class MainActivity extends AppCompatActivity {
         lv_contacts.setOnItemClickListener(new AdapterView.OnItemClickListener() {
             @Override
             public void onItemClick(AdapterView<?> parent, View view, int position, long id) {
-                editPerson(position);
+                Intent intent = new Intent(getApplicationContext(),FullContact.class);
+                intent.putExtra("position",position);
+                startActivity(intent);
             }
         });
 
@@ -133,35 +138,5 @@ public class MainActivity extends AppCompatActivity {
 
     }
 
-    public  void editPerson(int position){
-        Intent intent = new Intent(getApplicationContext(), newBaseContactForm.class);
 
-        BaseContact contact = addressBook.getContactBook().get(position);
-
-        intent.putExtra("edit",position);
-
-        intent.putExtra("firstname",contact.getName().getFirstName());
-        intent.putExtra("middlename",contact.getName().getMiddleName());
-        intent.putExtra("lastname",contact.getName().getLastName());
-        intent.putExtra("nickname",contact.getName().getNickName());
-
-        intent.putExtra("phonenumber",contact.getPhone());
-
-        intent.putExtra("streetnumber",contact.getAddress().getStreet());
-        intent.putExtra("street",contact.getAddress().getStreet2());
-        intent.putExtra("city",contact.getAddress().getCity());
-        intent.putExtra("state",contact.getAddress().getState());
-        intent.putExtra("postal",contact.getAddress().getPostal());
-        intent.putExtra("country",contact.getAddress().getCountry());
-
-        intent.putExtra("day",contact.getDateOfBirth().getDay());
-        intent.putExtra("month",contact.getDateOfBirth().getMonth());
-        intent.putExtra("year",contact.getDateOfBirth().getYear());
-
-        intent.putExtra("email",contact.getEmail());
-        intent.putExtra("url",contact.getUrl());
-        intent.putExtra("description",contact.getDescription());
-
-        startActivity(intent);
-    }
 }

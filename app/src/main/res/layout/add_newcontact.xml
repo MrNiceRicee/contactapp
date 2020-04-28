@@ -7,14 +7,16 @@
     android:orientation="vertical">
 
     <ImageView
-        android:id="@+id/imageView2"
+        android:id="@+id/iv_profilepic"
         android:layout_width="match_parent"
         android:layout_height="100dp"
         app:srcCompat="@android:drawable/ic_menu_myplaces" />
 
-    <ScrollView
+    <androidx.core.widget.NestedScrollView
         android:layout_width="match_parent"
-        android:layout_height="match_parent">
+        android:layout_height="wrap_content"
+        android:fillViewport="true"
+        android:paddingBottom="10dp">
 
         <LinearLayout
             android:layout_width="match_parent"
@@ -85,6 +87,62 @@
                 android:ems="10"
                 android:hint="Phone Number - Required"
                 android:inputType="phone" />
+
+            <EditText
+                android:id="@+id/et_email"
+                android:layout_width="match_parent"
+                android:layout_height="50dp"
+                android:ems="10"
+                android:hint="Email"
+                android:inputType="textEmailAddress" />
+
+            <LinearLayout
+                android:id="@+id/group_dateofbirth"
+                android:layout_width="match_parent"
+                android:layout_height="match_parent"
+                android:orientation="horizontal">
+
+                <TextView
+                    android:id="@+id/tv_DateofBirth"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:layout_weight="0"
+                    android:text="Date Of Birth"
+                    android:textSize="36sp" />
+
+                <LinearLayout
+                    android:id="@+id/Layout_dob"
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:layout_weight="0"
+                    android:orientation="vertical">
+
+                    <EditText
+                        android:id="@+id/et_day"
+                        android:layout_width="match_parent"
+                        android:layout_height="50dp"
+                        android:ems="10"
+                        android:hint="Day"
+                        android:inputType="number" />
+
+                    <EditText
+                        android:id="@+id/et_month"
+                        android:layout_width="match_parent"
+                        android:layout_height="50dp"
+                        android:ems="10"
+                        android:hint="Month"
+                        android:inputType="number" />
+
+                    <EditText
+                        android:id="@+id/et_year"
+                        android:layout_width="match_parent"
+                        android:layout_height="50dp"
+                        android:ems="10"
+                        android:hint="Year"
+                        android:inputType="number" />
+
+                </LinearLayout>
+            </LinearLayout>
 
             <LinearLayout
                 android:id="@+id/group_address"
@@ -159,78 +217,28 @@
 
             </LinearLayout>
 
-            <LinearLayout
-                android:id="@+id/group_dateofbirth"
-                android:layout_width="match_parent"
-                android:layout_height="match_parent"
-                android:orientation="horizontal">
-
-                <TextView
-                    android:id="@+id/tv_DateofBirth"
-                    android:layout_width="wrap_content"
-                    android:layout_height="wrap_content"
-                    android:layout_weight="0"
-                    android:text="Date Of Birth"
-                    android:textSize="36sp" />
-
-                <LinearLayout
-                    android:id="@+id/Layout_dob"
-                    android:layout_width="match_parent"
-                    android:layout_height="wrap_content"
-                    android:layout_weight="0"
-                    android:orientation="vertical">
-
-                    <EditText
-                        android:id="@+id/et_day"
-                        android:layout_width="match_parent"
-                        android:layout_height="50dp"
-                        android:ems="10"
-                        android:hint="Day"
-                        android:inputType="number" />
-
-                    <EditText
-                        android:id="@+id/et_month"
-                        android:layout_width="match_parent"
-                        android:layout_height="50dp"
-                        android:ems="10"
-                        android:hint="Month"
-                        android:inputType="number" />
-
-                    <EditText
-                        android:id="@+id/et_year"
-                        android:layout_width="match_parent"
-                        android:layout_height="50dp"
-                        android:ems="10"
-                        android:hint="Year"
-                        android:inputType="number" />
-
-                </LinearLayout>
-            </LinearLayout>
-
-            <EditText
-                android:id="@+id/et_email"
-                android:layout_width="match_parent"
-                android:layout_height="50dp"
-                android:ems="10"
-                android:hint="Email"
-                android:inputType="textEmailAddress" />
-
             <EditText
                 android:id="@+id/et_url"
                 android:layout_width="match_parent"
                 android:layout_height="50dp"
                 android:ems="10"
                 android:hint="Website"
-                android:inputType="textEmailAddress" />
+                android:inputType="textWebEditText" />
 
             <EditText
-                android:id="@+id/et_description"
+                android:id="@+id/et_notes"
                 android:layout_width="match_parent"
                 android:layout_height="50dp"
                 android:ems="10"
                 android:hint="Notes"
-                android:inputType="textEmailAddress" />
+                android:inputType="textAutoCorrect" />
+
+            <TextView
+                android:id="@+id/tv_empty"
+                android:layout_width="match_parent"
+                android:layout_height="35dp" />
+
         </LinearLayout>
-    </ScrollView>
+    </androidx.core.widget.NestedScrollView>
 
 </LinearLayout>

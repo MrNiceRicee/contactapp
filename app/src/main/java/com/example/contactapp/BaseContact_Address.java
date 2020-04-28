@@ -18,6 +18,11 @@ public class BaseContact_Address {
         this.postal = postal;
     }
 
+    //12345 N Street st, city, state, postal,
+    public String getFullAddress(){
+        return (this.street+ " "+this.street2+ ", "+this.city+ ", "+this.state+", "+this.postal);
+    }
+
     public String getStreet() {
         return street;
     }
