@@ -31,12 +31,20 @@
         android:id="@+id/et_search"
         android:layout_width="0dp"
         android:layout_height="wrap_content"
-        android:layout_marginStart="5dp"
-        android:layout_marginLeft="5dp"
         android:ems="10"
         android:hint="Search"
         android:inputType="textPersonName"
         app:layout_constraintEnd_toStartOf="@+id/btn_addcontact"
-        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintStart_toEndOf="@+id/btn_sort"
         app:layout_constraintTop_toTopOf="@+id/btn_addcontact" />
+
+    <ImageButton
+        android:id="@+id/btn_sort"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:background="#00FFFFFF"
+        app:layout_constraintBottom_toTopOf="@+id/lv_contacts"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toTopOf="parent"
+        app:srcCompat="@drawable/round_sort_black_18dp" />
 </androidx.constraintlayout.widget.ConstraintLayout>

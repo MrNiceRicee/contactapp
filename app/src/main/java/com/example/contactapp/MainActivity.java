@@ -14,17 +14,21 @@ import android.widget.ImageButton;
 import android.widget.ListView;
 
 import java.util.ArrayList;
+import java.util.Collections;
+import java.util.Comparator;
 import java.util.List;
 
 public class MainActivity extends AppCompatActivity {
 
     EditText et_search;
-    ImageButton btn_addcontact;
+    ImageButton btn_addcontact, btn_sort;
     ListView lv_contacts;
 
     AddressBook addressBook;
 
     PersonAdapter adapter;
+
+    int sortType = 0;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -33,6 +37,7 @@ public class MainActivity extends AppCompatActivity {
 
         et_search = findViewById(R.id.et_search);
         btn_addcontact = findViewById(R.id.btn_addcontact);
+        btn_sort = findViewById(R.id.btn_sort);
         lv_contacts = findViewById(R.id.lv_contacts);
 
         addressBook = ((MyApplication)this.getApplication()).getAddressBook();
@@ -120,19 +125,41 @@ public class MainActivity extends AppCompatActivity {
 
         //add person to the list and update adapter
 
-        et_search.setOnClickListener(new View.OnClickListener() {
-            @Override
-            public void onClick(View v) {
-
-            }
-        });
-
         btn_addcontact.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
 
                 Intent intent = new Intent(v.getContext(),newBaseContactForm.class);
                 startActivity(intent);
+            }
+        });
+
+        btn_sort.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                sortType++;
+                if (sortType>1){
+                    sortType=0;
+                }
+                if(sortType==0){
+                    //ABC sort
+                    Collections.sort(addressBook.getContactBook(), new Comparator<BaseContact>() {
+                        @Override
+                        public int compare(BaseContact o1, BaseContact o2) {
+                            return o1.getName().getFirstName().compareToIgnoreCase(o2.getName().getFirstName());
+                        }
+                    });
+                    adapter.notifyDataSetChanged();
+                }else if(sortType==1){
+                    //ABC sort
+                    Collections.sort(addressBook.getContactBook(), new Comparator<BaseContact>() {
+                        @Override
+                        public int compare(BaseContact o1, BaseContact o2) {
+                            return o2.getName().getFirstName().compareToIgnoreCase(o1.getName().getFirstName());
+                        }
+                    });
+                    adapter.notifyDataSetChanged();
+                }
             }
         });
 
