@@ -13,6 +13,10 @@ public class BaseContact_Name {
         this.lastName = lastName;
     }
 
+    public String getFullName(){
+        return (this.firstName + " "+ this.middleName+ " " + this.lastName +" "+ this.nickName);
+    }
+
     public String getFirstName() {
         return firstName;
     }

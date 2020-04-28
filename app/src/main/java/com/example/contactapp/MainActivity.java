@@ -4,12 +4,12 @@ import androidx.appcompat.app.AppCompatActivity;
 
 import android.content.Intent;
 import android.os.Bundle;
-import android.os.Parcelable;
-import android.util.AndroidException;
+import android.text.Editable;
+import android.text.TextWatcher;
+import android.util.Log;
 import android.view.View;
 import android.widget.AdapterView;
-import android.widget.ArrayAdapter;
-import android.widget.Button;
+import android.widget.EditText;
 import android.widget.ImageButton;
 import android.widget.ListView;
 
@@ -18,7 +18,7 @@ import java.util.List;
 
 public class MainActivity extends AppCompatActivity {
 
-    Button btn_search;
+    EditText et_search;
     ImageButton btn_addcontact;
     ListView lv_contacts;
 
@@ -31,11 +31,12 @@ public class MainActivity extends AppCompatActivity {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_main);
 
-        btn_search = findViewById(R.id.btn_Search);
+        et_search = findViewById(R.id.et_search);
         btn_addcontact = findViewById(R.id.btn_addcontact);
         lv_contacts = findViewById(R.id.lv_contacts);
 
         addressBook = ((MyApplication)this.getApplication()).getAddressBook();
+
 
         adapter = new PersonAdapter(MainActivity.this,addressBook);
         lv_contacts.setAdapter(adapter);
@@ -84,14 +85,25 @@ public class MainActivity extends AppCompatActivity {
             name.setNickName(nickname);
 
             //address
-            BaseContact_Address address= new BaseContact_Address(streetnumber,street,city,state,postal);
+            //BaseContact_Address address= new BaseContact_Address(streetnumber,street,city,state,postal);
+            BaseContact_Address address = new BaseContact_Address();
+            address.setStreet(streetnumber);
+            address.setStreet2(street);
+            address.setCity(city);
+            address.setState(state);
+            address.setPostal(postal);
             address.setCountry(country);
 
             //date of birth
-            BaseContact_DateOfBirth dateOfBirth = new BaseContact_DateOfBirth(day,month,year);
+            //BaseContact_DateOfBirth dateOfBirth = new BaseContact_DateOfBirth(day,month,year);
+            BaseContact_DateOfBirth dateOfBirth = new BaseContact_DateOfBirth();
+            dateOfBirth.setDay(day);
+            dateOfBirth.setMonth(month);
+            dateOfBirth.setYear(year);
 
             BaseContact contact = new BaseContact(name,phonenumber);
             contact.setName(name);
+            contact.setPhone(phonenumber);
             contact.setAddress(address);
             contact.setDateOfBirth(dateOfBirth);
             contact.setEmail(email);
@@ -99,7 +111,6 @@ public class MainActivity extends AppCompatActivity {
             contact.setDescription(description);
 
             addressBook.getContactBook().add(contact);
-
             adapter.notifyDataSetChanged();
 
         }
@@ -109,7 +120,7 @@ public class MainActivity extends AppCompatActivity {
 
         //add person to the list and update adapter
 
-        btn_search.setOnClickListener(new View.OnClickListener() {
+        et_search.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
 
@@ -134,7 +145,61 @@ public class MainActivity extends AppCompatActivity {
             }
         });
 
+        et_search.addTextChangedListener(new TextWatcher() {
+            @Override
+            public void beforeTextChanged(CharSequence s, int start, int count, int after) {
 
+            }
+            @Override
+            public void onTextChanged(CharSequence s, int start, int before, int count) {
+                String text = s.toString();
+                Log.d("tag",addressBook.getContactBook().size()+"");
+                if(text.length() > 0){
+                    List<BaseContact> temptArray = new ArrayList<BaseContact>();
+                    for (BaseContact xcontact : addressBook.getContactBook()){
+                        if(xcontact.getName().getFullName().toLowerCase().contains(text.toLowerCase())){
+                            if(!temptArray.contains(xcontact)){
+                                temptArray.add(xcontact);
+                            }
+                        }
+                        if(xcontact.getPhone().toLowerCase().contains(text.toLowerCase())){
+                            if(!temptArray.contains(xcontact)){
+                                temptArray.add(xcontact);
+                            }
+                        }
+                        if(xcontact.getAddress().getFullAddress().toLowerCase().contains(text.toLowerCase())){
+                            if(!temptArray.contains(xcontact)){
+                                temptArray.add(xcontact);
+                            }
+                        }
+                        if(xcontact.getDateOfBirth().getFullDateOfBirth().toLowerCase().contains(text.toLowerCase())){
+                            if(!temptArray.contains(xcontact)){
+                                temptArray.add(xcontact);
+                            }
+                        }
+                        if(xcontact.getEmail().toLowerCase().contains(text.toLowerCase())){
+                            if(!temptArray.contains(xcontact)){
+                                temptArray.add(xcontact);
+                            }
+                        }
+                        if(xcontact.getUrl().toLowerCase().contains(text.toLowerCase())){
+                            if(!temptArray.contains(xcontact)){
+                                temptArray.add(xcontact);
+                            }
+                        }
+                    }
+                    lv_contacts.setAdapter(new PersonAdapter(MainActivity.this, new AddressBook(temptArray)));
+                }
+                else {
+                    lv_contacts.setAdapter(adapter);
+                    adapter.notifyDataSetChanged();
+                }
+            }
+            @Override
+            public void afterTextChanged(Editable s) {
+
+            }
+        });
 
     }
 

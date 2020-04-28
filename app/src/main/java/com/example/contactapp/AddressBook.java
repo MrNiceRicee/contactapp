@@ -21,6 +21,10 @@ public class AddressBook extends Application {
         }
     }
 
+    public AddressBook(){
+        this.contactBook = new ArrayList<>();
+    }
+
     public List<BaseContact> getContactBook() {
         return contactBook;
     }

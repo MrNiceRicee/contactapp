@@ -6,12 +6,19 @@ import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
 import android.widget.BaseAdapter;
+import android.widget.Filter;
+import android.widget.Filterable;
 import android.widget.TextView;
 
-public class PersonAdapter extends BaseAdapter {
+import java.util.ArrayList;
+import java.util.Arrays;
+import java.util.List;
+
+public class PersonAdapter extends BaseAdapter{
 
     Activity mActivity;
     AddressBook addressBook;
+
 
     public PersonAdapter(Activity mActivity, AddressBook addressBook) {
         this.mActivity = mActivity;
@@ -53,6 +60,7 @@ public class PersonAdapter extends BaseAdapter {
         tv_name.setText(person.getName().getFirstName() + " "+person.getName().getLastName());
         tv_phonenumber.setText(person.getPhone());
         //tv_nickname.setText("nickname: "+person.getName().getNickName());
+        tv_nickname.setText("");
 
         return oneLine;
     }

@@ -12,6 +12,14 @@ public class BaseContact_DateOfBirth {
         this.year = year;
     }
 
+    public  BaseContact_DateOfBirth(){
+
+    }
+
+    public String getFullDateOfBirth(){
+        return (getDay() +" "+getMonth() + " "+getYear());
+    }
+
     public String getDay() {
         return day;
     }

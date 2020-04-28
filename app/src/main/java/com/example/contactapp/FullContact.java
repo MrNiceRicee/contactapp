@@ -76,6 +76,7 @@ public class FullContact extends AppCompatActivity {
         tv_notes.setText(contact.getDescription());
 
 
+
         //listeners
 
         btn_back.setOnClickListener(new View.OnClickListener() {
