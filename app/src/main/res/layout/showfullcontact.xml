@@ -19,7 +19,7 @@
         app:srcCompat="@drawable/round_edit_black_18dp" />
 
     <ImageButton
-        android:id="@+id/btn_back"
+        android:id="@+id/btn_generataback"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:layout_marginStart="5dp"
@@ -36,7 +36,7 @@
         android:layout_height="80dp"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toBottomOf="@+id/btn_back"
+        app:layout_constraintTop_toBottomOf="@+id/btn_generataback"
         app:srcCompat="@drawable/round_portrait_black_18dp" />
 
     <TextView
@@ -173,6 +173,7 @@
                 android:layout_height="wrap_content"
                 android:layout_marginLeft="10dp"
                 android:text="(123)456-7890"
+                android:textColor="#FF2475FF"
                 android:textSize="18sp" />
 
             <TextView
@@ -190,6 +191,7 @@
                 android:layout_height="wrap_content"
                 android:layout_marginLeft="10dp"
                 android:text="SomeEmail@Gmail.com"
+                android:textColor="#FF2475FF"
                 android:textSize="18sp" />
 
             <TextView
@@ -207,6 +209,7 @@
                 android:layout_height="wrap_content"
                 android:layout_marginLeft="10dp"
                 android:text="12345 N Street Dr"
+                android:textColor="#FF2475FF"
                 android:textSize="18sp" />
 
             <TextView
@@ -215,6 +218,7 @@
                 android:layout_height="wrap_content"
                 android:layout_marginLeft="10dp"
                 android:text="City, State, 12345"
+                android:textColor="#FF2475FF"
                 android:textSize="18sp" />
 
             <TextView
@@ -232,6 +236,7 @@
                 android:layout_height="wrap_content"
                 android:layout_marginLeft="10dp"
                 android:text="Https://www.Website.com"
+                android:textColor="#FF2475FF"
                 android:textSize="18sp" />
 
             <TextView
@@ -270,13 +275,5 @@
 
         </LinearLayout>
     </ScrollView>
-
-    <Button
-        android:id="@+id/btn_delete"
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:text="Delete"
-        app:layout_constraintEnd_toStartOf="@+id/btn_edit"
-        app:layout_constraintTop_toTopOf="parent" />
 
 </androidx.constraintlayout.widget.ConstraintLayout>

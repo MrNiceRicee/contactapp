@@ -8,7 +8,6 @@ import android.content.Intent;
 import android.content.pm.PackageManager;
 import android.net.Uri;
 import android.os.Bundle;
-import android.util.Log;
 import android.view.View;
 import android.widget.Button;
 import android.widget.ImageButton;
@@ -21,7 +20,6 @@ public class FullContact extends AppCompatActivity {
 
     ImageButton btn_edit, btn_back;
 
-    Button btn_delete;
 
     ImageButton btn_call, btn_text, btn_email, btn_maps;
 
@@ -39,9 +37,8 @@ public class FullContact extends AppCompatActivity {
         setContentView(R.layout.activity_fullcontact);
 
         //set parameters
-        btn_back = findViewById(R.id.btn_back);
+        btn_back = findViewById(R.id.btn_generataback);
         btn_edit = findViewById(R.id.btn_edit);
-        btn_delete = findViewById(R.id.btn_delete);
 
         btn_call = findViewById(R.id.btn_call);
         btn_text = findViewById(R.id.btn_text);
@@ -97,18 +94,17 @@ public class FullContact extends AppCompatActivity {
             }
         });
 
-        btn_delete.setOnClickListener(new View.OnClickListener() {
-            @Override
-            public void onClick(View v) {
-                addressBook.getContactBook().remove(itemposition);
-                Intent intent = new Intent(v.getContext(), MainActivity.class);
-                startActivity(intent);
-            }
-        });
 
         //android services
 
         btn_call.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                dialPhoneNumber(contact.getPhone());
+            }
+        });
+
+        tv_mobile.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
                 dialPhoneNumber(contact.getPhone());
@@ -131,6 +127,15 @@ public class FullContact extends AppCompatActivity {
             }
         });
 
+        tv_email.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                String[] addresses = new String[1];
+                addresses[0] = contact.getEmail();
+                composeEmail(addresses,"Hello! From someone");
+            }
+        });
+
         btn_maps.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
@@ -140,6 +145,34 @@ public class FullContact extends AppCompatActivity {
                 showMap(mapUri);
             }
         });
+
+        tv_address1.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                String mapsQuery = "geo:0,0?q=" + contact.getAddress().getFullAddress();
+                Uri mapUri =  Uri.parse(mapsQuery);
+
+                showMap(mapUri);
+            }
+        });
+
+        tv_address2.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                String mapsQuery = "geo:0,0?q=" + contact.getAddress().getFullAddress();
+                Uri mapUri =  Uri.parse(mapsQuery);
+
+                showMap(mapUri);
+            }
+        });
+
+        tv_url.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                openWebPage(contact.getUrl());
+            }
+        });
+
     }
 
     public  void editPerson(int position){
@@ -223,6 +256,14 @@ public class FullContact extends AppCompatActivity {
     public void showMap(Uri geoLocation) {
         Intent intent = new Intent(Intent.ACTION_VIEW);
         intent.setData(geoLocation);
+        if (intent.resolveActivity(getPackageManager()) != null) {
+            startActivity(intent);
+        }
+    }
+
+    public void openWebPage(String url) {
+        Uri webpage = Uri.parse(url);
+        Intent intent = new Intent(Intent.ACTION_VIEW, webpage);
         if (intent.resolveActivity(getPackageManager()) != null) {
             startActivity(intent);
         }

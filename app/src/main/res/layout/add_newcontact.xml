@@ -234,6 +234,13 @@
                 android:inputType="textAutoCorrect" />
 
             <TextView
+                android:id="@+id/tv_delete"
+                android:layout_width="match_parent"
+                android:layout_height="35dp"
+                android:text="DELETE CONTACT"
+                android:textColor="#FF0000" />
+
+            <TextView
                 android:id="@+id/tv_empty"
                 android:layout_width="match_parent"
                 android:layout_height="35dp" />

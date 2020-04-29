@@ -8,6 +8,7 @@ import android.text.TextUtils;
 import android.view.View;
 import android.widget.Button;
 import android.widget.EditText;
+import android.widget.TextView;
 
 import java.util.Arrays;
 import java.util.Random;
@@ -22,10 +23,14 @@ public class newBaseContactForm extends AppCompatActivity {
     EditText et_day, et_month, et_year;
     EditText et_email, et_url, et_description;
 
+    TextView tv_delete;
+
     int positionToEdit = -1;
 
     private String[] monthList = {"January", "February", "March","April","May","June"
             ,"July", "August", "September", "October", "November", "December"};
+
+    AddressBook addressBook;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -62,6 +67,8 @@ public class newBaseContactForm extends AppCompatActivity {
         et_url = findViewById(R.id.et_url);
         et_description = findViewById(R.id.et_notes);
 
+        tv_delete = findViewById(R.id.tv_delete);
+        addressBook = ((MyApplication)this.getApplication()).getAddressBook();
 
         //listen if filled in
         Bundle incomingIntent = getIntent().getExtras();
@@ -118,6 +125,21 @@ public class newBaseContactForm extends AppCompatActivity {
             et_email.setText(email);
             et_url.setText(url);
             et_description.setText(description);
+
+
+            tv_delete.setOnClickListener(new View.OnClickListener() {
+                @Override
+                public void onClick(View v) {
+                    Intent intent = new Intent(v.getContext(),MainActivity.class);
+
+                    addressBook.getContactBook().remove(positionToEdit);
+                    intent.putExtra("toDelete",positionToEdit);
+                    startActivity(intent);
+                }
+            });
+
+        }else {
+            tv_delete.setText("");
         }
 
         btn_add.setOnClickListener(new View.OnClickListener() {
@@ -210,6 +232,8 @@ public class newBaseContactForm extends AppCompatActivity {
                 }
             }
         });
+
+
 
         btn_cancel.setOnClickListener(new View.OnClickListener() {
             @Override

@@ -3,21 +3,26 @@ package com.example.contactapp;
 import androidx.appcompat.app.AppCompatActivity;
 
 import android.content.Intent;
-import android.content.SharedPreferences;
 import android.os.Bundle;
 import android.text.Editable;
 import android.text.TextWatcher;
 import android.util.Log;
 import android.view.View;
 import android.widget.AdapterView;
+import android.widget.Button;
 import android.widget.EditText;
 import android.widget.ImageButton;
 import android.widget.ListView;
+import android.widget.Toast;
 
 import com.google.gson.Gson;
-import com.google.gson.reflect.TypeToken;
 
-import java.lang.reflect.Type;
+import java.io.BufferedReader;
+import java.io.FileInputStream;
+import java.io.FileNotFoundException;
+import java.io.FileOutputStream;
+import java.io.IOException;
+import java.io.InputStreamReader;
 import java.util.ArrayList;
 import java.util.Collections;
 import java.util.Comparator;
@@ -35,6 +40,9 @@ public class MainActivity extends AppCompatActivity {
 
     int sortType = 0;
 
+    private static final String FILE_NAME = "saveData.txt";
+
+    Button btn_test,btn_test2;
 
 
     @Override
@@ -47,12 +55,18 @@ public class MainActivity extends AppCompatActivity {
         btn_sort = findViewById(R.id.btn_sort);
         lv_contacts = findViewById(R.id.lv_contacts);
 
+        btn_test = findViewById(R.id.btn_testee);
+        btn_test2 = findViewById(R.id.btn_loadtest);
+
         addressBook = ((MyApplication)this.getApplication()).getAddressBook();      //checks if theres anything in the current app saved
         //check shared preferences
 
-        if(addressBook.getContactBook().size() == 0){
-            addressBook.getContactBook().addAll(addressBook.generateContacts(10));
-        }
+        Collections.sort(addressBook.getContactBook(), new Comparator<BaseContact>() {
+            @Override
+            public int compare(BaseContact o1, BaseContact o2) {
+                return o1.getName().getFirstName().compareToIgnoreCase(o2.getName().getFirstName());
+            }
+        });
 
 
         adapter = new PersonAdapter(MainActivity.this,addressBook);
@@ -144,6 +158,16 @@ public class MainActivity extends AppCompatActivity {
                 startActivity(intent);
             }
         });
+
+        btn_addcontact.setOnLongClickListener(new View.OnLongClickListener() {
+            @Override
+            public boolean onLongClick(View v) {
+                Intent intent = new Intent(v.getContext(),GenerateContacts.class);
+                startActivity(intent);
+                return false;
+            }
+        });
+
 
         btn_sort.setOnClickListener(new View.OnClickListener() {
             @Override
@@ -239,9 +263,87 @@ public class MainActivity extends AppCompatActivity {
             }
         });
 
+        btn_test.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                save();
+            }
+        });
+
+        btn_test2.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                addressBook.getContactBook().removeAll(addressBook.getContactBook());
+                addressBook.getContactBook().addAll(load().getContactBook());
+                adapter.notifyDataSetChanged();
+            }
+        });
     }
 
     //save data to sharedpreferences
+
+    public void save(){
+        Gson gson = new Gson();
+        String text = gson.toJson(addressBook);
+        FileOutputStream fileOutputStream = null;
+
+        try {
+            fileOutputStream = openFileOutput(FILE_NAME, MODE_PRIVATE);
+            fileOutputStream.write(text.getBytes());
+
+            //Toast.makeText(this,"Saved "+getFilesDir()+"/"+FILE_NAME,Toast.LENGTH_SHORT).show();
+
+        }catch(FileNotFoundException e){
+
+        }catch (IOException e){
+
+        }finally {
+            if(fileOutputStream!= null){
+                try {
+                    fileOutputStream.close();
+                } catch (IOException e) {
+                    e.printStackTrace();
+                }
+            }
+        }
+    }
+
+    public AddressBook load(){
+        FileInputStream fileInputStream = null;
+        Gson gson = new Gson();
+        AddressBook toReturn = null;
+        try {
+            fileInputStream = openFileInput(FILE_NAME);
+            InputStreamReader inputStreamReader = new InputStreamReader(fileInputStream);
+            BufferedReader bufferedReader = new BufferedReader(inputStreamReader);
+            StringBuilder stringBuilder = new StringBuilder();
+            String test;
+
+            while ((test = bufferedReader.readLine())!=null){
+                stringBuilder.append(test).append("\n");
+            }
+
+            toReturn = gson.fromJson(stringBuilder.toString(), AddressBook.class);
+
+            //Toast.makeText(this,"Got: "+toReturn.getContactBook().size(),Toast.LENGTH_SHORT).show();
+        } catch (FileNotFoundException e) {
+            e.printStackTrace();
+        } catch (IOException e) {
+            e.printStackTrace();
+        }finally {
+            if (fileInputStream!=null){
+                try {
+                    fileInputStream.close();
+                } catch (IOException e) {
+                    e.printStackTrace();
+                }
+            }
+            if (toReturn==null){
+                addressBook = ((MyApplication)this.getApplication()).getAddressBook();
+            }
+        }
+        return toReturn;
+    }
 
 
 }

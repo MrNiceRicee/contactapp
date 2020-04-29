@@ -6,8 +6,17 @@ public class Randomizer {
 
     //rewrote the randomizer to fit the new basecontact set up
 
-    private String[] firstNameList = {"James", "John", "Robert", "Micheal", "William",
-            "Mary", "Patricia", "Jennifer", "Linda", "Elizabeth"}; //Most common first names male and female
+    private String[] firstNameList = {"Andre","James", "John", "Robert", "Micheal", "William",
+
+            "Ariana","Mary", "Patricia", "Jennifer", "Linda", "Elizabeth",
+
+            "Joshua", "Nicole", "Cristal","Christian","Charles","David","Daniel","Joanna","Joe","Joseph",
+
+            "Anna","Andrew","Benjamin","Betty","Charlie","DK","Danielle","Ester","Eugene","Frank","Fran","George","Geo",
+            "Henry","Hwasa","Ian","Irelia","Jason","Jessica","Killmonger","Katarina","Lucian","Lissandra","Lanna","Monica","Matt",
+            "Nathaniel","Natasha","Ophelia","Orlando","Patrick","Patricia","Queso","Quiche","Rachel","Randy","Sandy","Samuel","Tammy","Thomas",
+            "Udyr","Ursula","Violet","Vince","Winston","Wanda","Wendy","Xena","Xander","Zadie","Zayne"
+            }; //Most common first names male and female
 
     private String[] lastNameList = {"Smith", "Johnson", "Williams", " Jones", "Brown",
             "Davis", "Miller", "Wilson", "Moore", "Taylor"};	//Most common last names
