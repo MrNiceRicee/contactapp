@@ -3,6 +3,7 @@ package com.example.contactapp;
 import androidx.appcompat.app.AppCompatActivity;
 
 import android.content.Intent;
+import android.content.SharedPreferences;
 import android.os.Bundle;
 import android.text.Editable;
 import android.text.TextWatcher;
@@ -13,6 +14,10 @@ import android.widget.EditText;
 import android.widget.ImageButton;
 import android.widget.ListView;
 
+import com.google.gson.Gson;
+import com.google.gson.reflect.TypeToken;
+
+import java.lang.reflect.Type;
 import java.util.ArrayList;
 import java.util.Collections;
 import java.util.Comparator;
@@ -30,6 +35,8 @@ public class MainActivity extends AppCompatActivity {
 
     int sortType = 0;
 
+
+
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
@@ -40,7 +47,12 @@ public class MainActivity extends AppCompatActivity {
         btn_sort = findViewById(R.id.btn_sort);
         lv_contacts = findViewById(R.id.lv_contacts);
 
-        addressBook = ((MyApplication)this.getApplication()).getAddressBook();
+        addressBook = ((MyApplication)this.getApplication()).getAddressBook();      //checks if theres anything in the current app saved
+        //check shared preferences
+
+        if(addressBook.getContactBook().size() == 0){
+            addressBook.getContactBook().addAll(addressBook.generateContacts(10));
+        }
 
 
         adapter = new PersonAdapter(MainActivity.this,addressBook);
@@ -117,7 +129,6 @@ public class MainActivity extends AppCompatActivity {
 
             addressBook.getContactBook().add(contact);
             adapter.notifyDataSetChanged();
-
         }
         //capture incoming data
 
@@ -229,6 +240,8 @@ public class MainActivity extends AppCompatActivity {
         });
 
     }
+
+    //save data to sharedpreferences
 
 
 }

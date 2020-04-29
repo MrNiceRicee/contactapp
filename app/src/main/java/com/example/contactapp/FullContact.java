@@ -21,6 +21,8 @@ public class FullContact extends AppCompatActivity {
 
     ImageButton btn_edit, btn_back;
 
+    Button btn_delete;
+
     ImageButton btn_call, btn_text, btn_email, btn_maps;
 
     TextView tv_name, tv_nickname, tv_mobile, tv_email, tv_address1, tv_address2, tv_url, tv_dob, tv_notes;
@@ -39,6 +41,7 @@ public class FullContact extends AppCompatActivity {
         //set parameters
         btn_back = findViewById(R.id.btn_back);
         btn_edit = findViewById(R.id.btn_edit);
+        btn_delete = findViewById(R.id.btn_delete);
 
         btn_call = findViewById(R.id.btn_call);
         btn_text = findViewById(R.id.btn_text);
@@ -91,6 +94,15 @@ public class FullContact extends AppCompatActivity {
             @Override
             public void onClick(View v) {
                 editPerson(itemposition);
+            }
+        });
+
+        btn_delete.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                addressBook.getContactBook().remove(itemposition);
+                Intent intent = new Intent(v.getContext(), MainActivity.class);
+                startActivity(intent);
             }
         });
 

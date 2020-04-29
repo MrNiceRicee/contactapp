@@ -4,9 +4,11 @@ import android.app.Application;
 
 public class MyApplication extends Application {
 
-    private AddressBook addressBook = new AddressBook(25);
+    private AddressBook addressBook = new AddressBook();
+
 
     public AddressBook getAddressBook() {
+
         return addressBook;
     }
 

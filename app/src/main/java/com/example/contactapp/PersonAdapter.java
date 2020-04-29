@@ -57,7 +57,7 @@ public class PersonAdapter extends BaseAdapter{
 
         BaseContact person = this.getItem(position);
 
-        tv_name.setText(person.getName().getFirstName() + " "+person.getName().getLastName());
+        tv_name.setText((position+1)+". "+person.getName().getFirstName() + " "+person.getName().getLastName());
         tv_phonenumber.setText(person.getPhone());
         //tv_nickname.setText("nickname: "+person.getName().getNickName());
         tv_nickname.setText("");
