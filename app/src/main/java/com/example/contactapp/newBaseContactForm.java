@@ -133,7 +133,7 @@ public class newBaseContactForm extends AppCompatActivity {
                     Intent intent = new Intent(v.getContext(),MainActivity.class);
 
                     addressBook.getContactBook().remove(positionToEdit);
-                    intent.putExtra("toDelete",positionToEdit);
+
                     startActivity(intent);
                 }
             });

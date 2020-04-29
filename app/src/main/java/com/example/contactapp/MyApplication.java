@@ -5,14 +5,8 @@ import android.util.Log;
 
 public class MyApplication extends Application {
 
-    DataManager dataManager = new DataManager();
 
     private AddressBook addressBook = new AddressBook();
-
-    public AddressBook generate(){
-        AddressBook toreturn = dataManager.load();
-        return toreturn;
-    }
 
 
     public AddressBook getAddressBook() {
